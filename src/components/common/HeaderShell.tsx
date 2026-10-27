@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ChevronDown,
@@ -49,6 +49,7 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const productsRef = useRef<HTMLDivElement>(null);
   const isHome = pathname === "/";
   const dark = true;
 
@@ -63,6 +64,17 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
     setOpen(false);
     setProductsOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!productsOpen) return;
+    const onPointerDown = (event: MouseEvent) => {
+      if (productsRef.current && !productsRef.current.contains(event.target as Node)) {
+        setProductsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    return () => document.removeEventListener("mousedown", onPointerDown);
+  }, [productsOpen]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -143,43 +155,51 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
 
           <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navigasi utama">
             <div
+              ref={productsRef}
               className="relative"
               onMouseEnter={() => setProductsOpen(true)}
               onMouseLeave={() => setProductsOpen(false)}
-              onFocus={() => setProductsOpen(true)}
-              onBlur={(event) => {
-                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setProductsOpen(false);
-              }}
               onKeyDown={(event) => {
-                if (event.key === "Escape") setProductsOpen(false);
+                if (event.key === "Escape") {
+                  setProductsOpen(false);
+                  if (typeof document !== "undefined") (document.activeElement as HTMLElement)?.blur();
+                }
               }}
             >
-              <Link
-                href="/products"
-                onClick={() => setProductsOpen(false)}
+              <button
+                type="button"
+                onClick={() => setProductsOpen((prev) => !prev)}
+                onFocus={() => setProductsOpen(true)}
                 aria-expanded={productsOpen}
+                aria-haspopup="true"
                 className={cn(
-                  "inline-flex items-center gap-1 rounded-md px-3 py-2 text-[0.82rem] font-semibold transition",
+                  "inline-flex items-center gap-1 rounded-md px-3 py-2 text-[0.82rem] font-semibold transition cursor-pointer",
                   dark ? "text-white/80 hover:text-white" : "text-primary/75 hover:text-primary",
+                  productsOpen && "text-accent",
                 )}
               >
                 {t.nav.products}
                 <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-300", productsOpen && "rotate-180")} aria-hidden />
-              </Link>
+              </button>
 
               <div
                 className={cn(
-                  "absolute left-1/2 top-full z-50 w-[700px] -translate-x-1/2 pt-3 transition-all duration-200",
-                  productsOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-2 opacity-0",
+                  "absolute left-0 top-full z-50 w-[680px] max-w-[calc(100vw-32px)] pt-3 transition-all duration-200",
+                  productsOpen
+                    ? "visible translate-y-0 opacity-100"
+                    : "invisible -translate-y-1 opacity-0 pointer-events-none",
                 )}
               >
-                <div className="surface-industrial overflow-hidden rounded-xl border border-white/10 p-3 shadow-2xl shadow-black/40">
+                <div className="surface-industrial overflow-hidden rounded-xl border border-white/10 p-3 shadow-2xl shadow-black/50 backdrop-blur-xl">
                   <div className="grid grid-cols-2 gap-2">
                     {categories.map((category) => (
                       <Link
                         key={category.slug}
                         href={`/products?cat=${category.slug}`}
-                        onClick={() => setProductsOpen(false)}
+                        onClick={() => {
+                          setProductsOpen(false);
+                          if (typeof document !== "undefined") (document.activeElement as HTMLElement)?.blur();
+                        }}
                         className="group/card flex items-center gap-3.5 rounded-lg border border-transparent p-2.5 transition hover:border-white/10 hover:bg-white/[0.06]"
                       >
                         <Visual
@@ -208,7 +228,10 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
                   </div>
                   <Link
                     href="/products"
-                    onClick={() => setProductsOpen(false)}
+                    onClick={() => {
+                      setProductsOpen(false);
+                      if (typeof document !== "undefined") (document.activeElement as HTMLElement)?.blur();
+                    }}
                     className="mt-2 flex items-center justify-between rounded-lg bg-accent px-4 py-3 text-sm font-semibold transition hover:brightness-105"
                     style={{ color: "rgb(var(--c-on-accent))" }}
                   >

@@ -124,7 +124,7 @@ Hero (gelap) → Trust (putih) → Kategori (terang gradient) → Statistik (gel
 - [ ] Teks terbaca (kontras AA) pada ke-6 tema warna — perlu uji visual 6 tema.
 - [ ] Tampilan rapi di 360px, 768px, 1280px, dan 1920px — perlu uji responsif.
 - [x] Hanya satu dropdown tema pada navbar desktop.
-- [ ] `tsc --noEmit` ✅ dan build produksi lulus — kompilasi + TypeScript ✅, tetapi prerender gagal karena database lokal belum memiliki tabel (`P2021`), bukan karena UI.
+- [x] `tsc --noEmit` lulus dan `next build` produksi lulus (41/41 halaman). Catatan: `npm run build` memerlukan dev server dihentikan agar `prisma generate` tidak terkunci (`EPERM` di Windows).
 
 ## 10. Risiko & Mitigasi
 | Risiko | Mitigasi |

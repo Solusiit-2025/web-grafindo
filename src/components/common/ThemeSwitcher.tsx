@@ -98,9 +98,19 @@ export function ThemeSwitcher({
         <div
           role="menu"
           aria-label={locale === "en" ? "Display theme" : "Tema tampilan"}
-          className="absolute right-0 top-full z-[80] mt-2 max-h-[70vh] w-72 overflow-y-auto rounded-lg border border-surface-200 bg-white p-2 text-primary shadow-e3 animate-fade-up"
+          className={cn(
+            "absolute right-0 top-full z-[80] mt-2 max-h-[70vh] w-72 overflow-y-auto rounded-xl p-2 shadow-2xl animate-fade-up",
+            variant === "dark"
+              ? "surface-industrial border border-white/10 text-white shadow-black/50 backdrop-blur-xl"
+              : "border border-surface-200 bg-white text-primary shadow-e3",
+          )}
         >
-          <p className="px-2 pb-1.5 pt-1 text-[0.58rem] font-bold uppercase tracking-[0.16em] text-neutral-400">
+          <p
+            className={cn(
+              "px-2 pb-1.5 pt-1 text-[0.58rem] font-bold uppercase tracking-[0.16em]",
+              variant === "dark" ? "text-white/40" : "text-neutral-400",
+            )}
+          >
             {locale === "en" ? "Display theme" : "Tema tampilan"}
           </p>
           {themes.map((theme) => {
@@ -113,33 +123,62 @@ export function ThemeSwitcher({
                 aria-checked={selected}
                 onClick={() => apply(theme.id)}
                 className={cn(
-                  "flex w-full items-center gap-3 rounded-md px-2.5 py-2 text-left transition",
-                  selected ? "bg-surface" : "hover:bg-surface/70",
+                  "flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-left transition",
+                  variant === "dark"
+                    ? selected
+                      ? "bg-white/10 text-white"
+                      : "text-white/75 hover:bg-white/5 hover:text-white"
+                    : selected
+                      ? "bg-surface"
+                      : "hover:bg-surface/70",
                 )}
               >
                 <span className="flex shrink-0 -space-x-1" aria-hidden>
                   {theme.swatches.map((color) => (
                     <span
                       key={color}
-                      className="h-4 w-4 rounded-full border border-white shadow-e1"
+                      className={cn(
+                        "h-4 w-4 rounded-full border shadow-e1",
+                        variant === "dark" ? "border-black/50" : "border-white",
+                      )}
                       style={{ backgroundColor: color }}
                     />
                   ))}
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-xs font-semibold text-primary">{theme.name[locale]}</span>
                   <span
-                    className="mt-0.5 block truncate text-[0.6rem] text-neutral-500"
+                    className={cn(
+                      "block text-xs font-semibold",
+                      variant === "dark" ? "text-white" : "text-primary",
+                    )}
+                  >
+                    {theme.name[locale]}
+                  </span>
+                  <span
+                    className={cn(
+                      "mt-0.5 block truncate text-[0.6rem]",
+                      variant === "dark" ? "text-white/50" : "text-neutral-500",
+                    )}
                     title={theme.description[locale]}
                   >
                     {theme.description[locale]}
                   </span>
                 </span>
-                {selected && <Check className="h-4 w-4 shrink-0 text-accent-700" aria-hidden />}
+                {selected && (
+                  <Check
+                    className={cn("h-4 w-4 shrink-0", variant === "dark" ? "text-accent" : "text-accent-700")}
+                    aria-hidden
+                  />
+                )}
               </button>
             );
           })}
-          <p className="px-2 pb-1 pt-2 text-[0.55rem] leading-relaxed text-neutral-400">
+          <p
+            className={cn(
+              "px-2 pb-1 pt-2 text-[0.55rem] leading-relaxed",
+              variant === "dark" ? "text-white/40" : "text-neutral-400",
+            )}
+          >
             {locale === "en" ? "Saved automatically on this device." : "Tersimpan otomatis di perangkat ini."}
           </p>
         </div>
