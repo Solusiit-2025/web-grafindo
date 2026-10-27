@@ -52,12 +52,13 @@ export default async function ContactPage() {
         eyebrow={t.contact.eyebrow}
         title={t.contact.title}
         lead={t.contact.lead}
+        texture="oxford"
         action={
           <a
             href={waLink(wa?.number ?? siteConfig.whatsapp, locale === "en" ? "Hello GRAFINDO, I'd like to consult about a project." : "Halo GRAFINDO, saya ingin konsultasi proyek.")}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-dark"
+            className="btn-outline-light"
           >
             <MessageCircle className="h-4 w-4" aria-hidden />
             {t.common.whatsapp}
@@ -65,7 +66,9 @@ export default async function ContactPage() {
         }
       />
 
-      <section className="container-site py-10 md:py-14">
+      <section className="texture-fabric-oxford relative overflow-hidden py-10 md:py-14">
+        <div className="pattern-oxford pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="container-site relative">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
             <div className="rounded-xl border border-surface-200 bg-white p-6 shadow-e2 sm:p-8">
@@ -104,11 +107,11 @@ export default async function ContactPage() {
               })}
             </div>
 
-            <div className="mt-4 rounded-lg bg-grad-steel p-5 text-white">
-              <p className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-white/40">
+            <div className="panel-industrial mt-4 p-5">
+              <p className="relative text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-white/55">
                 {locale === "en" ? "Site visit" : "Kunjungan pabrik"}
               </p>
-              <p className="mt-1.5 text-sm leading-relaxed text-white/65">
+              <p className="relative mt-1.5 text-sm leading-relaxed text-white/70">
                 {locale === "en"
                   ? "We welcome client visits and vendor audits by appointment."
                   : "Kami menerima kunjungan klien dan audit vendor dengan penjadwalan."}
@@ -125,10 +128,12 @@ export default async function ContactPage() {
             </div>
           </aside>
         </div>
+        </div>
       </section>
 
-      <section className="border-t border-surface-200 bg-surface py-10 md:py-14">
-        <div className="container-site">
+      <section className="border-t border-surface-200/80 texture-fabric-oxford relative overflow-hidden py-10 md:py-14">
+        <div className="pattern-oxford pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="container-site relative">
           <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="eyebrow">{t.contact.mapTitle}</p>

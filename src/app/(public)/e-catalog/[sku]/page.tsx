@@ -64,9 +64,10 @@ export default async function ECatalogDetailPage({ params }: { params: Promise<{
 
   return (
     <>
-      <div className="border-b border-surface-200 bg-white">
-        <div className="container-site py-4">
+      <div className="surface-industrial border-b border-white/10 text-white">
+        <div className="container-site relative py-4">
           <Breadcrumb
+            className="text-white/55 [&_[aria-current=page]]:text-white [&_a:hover]:text-accent [&_svg]:text-white/30"
             items={[
               { label: t.common.home, href: "/" },
               { label: t.nav.catalog, href: "/e-catalog" },

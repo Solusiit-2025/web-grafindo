@@ -61,9 +61,9 @@ export default async function FaqPage() {
               </div>
             ))}
 
-            <div className="rounded-lg bg-grad-steel p-6 text-white">
-              <h2 className="font-display text-lg font-bold">{t.faq.lead}</h2>
-              <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+            <div className="panel-industrial p-6">
+              <h2 className="relative font-display text-lg font-bold">{t.faq.lead}</h2>
+              <div className="relative mt-3 flex flex-col gap-2 sm:flex-row">
                 <ButtonLink href="/contact" size="sm">
                   <MessageCircle className="h-3.5 w-3.5" aria-hidden />
                   {t.faq.cta}

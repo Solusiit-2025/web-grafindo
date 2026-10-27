@@ -52,11 +52,14 @@ export default async function BlogPage({
         eyebrow={t.blog.eyebrow}
         title={t.blog.title}
         lead={t.blog.lead}
-        meta={<Badge tone="steel">{posts.length} artikel</Badge>}
+        texture="bookcloth"
+        meta={<Badge tone="onDark">{posts.length} artikel</Badge>}
       />
 
-      <section className="container-site py-10 md:py-14">
-        <div className="no-scrollbar flex gap-2 overflow-x-auto pb-1">
+      <section className="texture-fabric-bookcloth relative overflow-hidden py-10 md:py-14">
+        <div className="pattern-bookcloth pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="container-site relative">
+          <div className="no-scrollbar flex gap-2 overflow-x-auto pb-1">
           <Link href="/blog" className={cn("chip shrink-0", !cat && "chip-active")}>
             {t.blog.all}
           </Link>
@@ -169,16 +172,18 @@ export default async function BlogPage({
           </>
         )}
 
-        <div className="mt-12 rounded-lg bg-grad-steel p-6 text-white sm:p-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="panel-industrial mt-12 p-6 sm:p-8">
+          <div className="pattern-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
+          <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="font-display text-xl font-bold">{t.blog.ctaTitle}</h2>
-              <p className="mt-1 text-sm text-white/55">{t.about.lead}</p>
+              <p className="mt-1 text-sm text-white/70">{t.about.lead}</p>
             </div>
             <ButtonLink href="/quote" className="shrink-0">
               {t.blog.ctaCta}
             </ButtonLink>
           </div>
+        </div>
         </div>
       </section>
     </>

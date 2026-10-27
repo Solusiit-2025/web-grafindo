@@ -28,6 +28,13 @@ export type HeaderCategory = {
   count: number;
 };
 
+const categoryCovers: Record<string, string> = {
+  stickers: "/images/products/cat-stickers.jpg",
+  graphics: "/images/products/cat-graphics.jpg",
+  emblems: "/images/products/cat-emblems.jpg",
+  "soft-emblems": "/images/products/cat-soft-emblems.jpg",
+};
+
 type Props = {
   locale: "id" | "en";
   theme: ThemeId;
@@ -41,8 +48,9 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
   const isHome = pathname === "/";
-  const dark = isHome && !scrolled;
+  const dark = true;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -53,6 +61,7 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
 
   useEffect(() => {
     setOpen(false);
+    setProductsOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -82,9 +91,19 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
   ] as const;
 
   return (
-    <header className={cn("sticky top-0 w-full", open ? "z-[75]" : "z-40")}>
+    <header className={cn("sticky top-0 w-full transition-all duration-300", open ? "z-[75]" : "z-40")}>
       {/* Utility top bar */}
-      <div className="hidden bg-primary text-white/70 lg:block">
+      <div
+        className={cn(
+          "hidden transition-all duration-300 lg:block overflow-hidden",
+          scrolled ? "max-h-0 opacity-0 border-b-0" : "max-h-12 opacity-100",
+          dark
+            ? isHome
+              ? "border-b border-white/[0.08] bg-transparent text-white/70"
+              : "border-b border-white/[0.08] bg-[#0F1115] text-white/70"
+            : "border-b border-surface-200/60 bg-transparent text-neutral-600",
+        )}
+      >
         <div className="container-site flex h-9 items-center justify-between text-[0.7rem] font-medium">
           <p className="hidden items-center gap-2 xl:flex">
             <span className="h-1 w-1 rounded-full bg-accent" aria-hidden />
@@ -101,7 +120,6 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
               <Clock className="h-3 w-3" aria-hidden /> {contact.hours}
             </span>
             <span className="h-4 w-px bg-white/15" aria-hidden />
-            <ThemeSwitcher current={theme} locale={locale} variant="dark" />
             <LocaleSwitcher locale={locale} compact />
           </div>
         </div>
@@ -112,59 +130,90 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
         className={cn(
           "border-b transition-all duration-300",
           dark
-            ? "border-white/10 bg-primary/95 text-white backdrop-blur-md"
-            : "border-surface-200/80 bg-white/[0.97] text-primary shadow-e1 backdrop-blur-xl",
+            ? scrolled || !isHome
+              ? "border-white/10 bg-[#0F1115]/90 text-white shadow-2xl shadow-black/30 backdrop-blur-xl"
+              : "border-white/[0.08] bg-transparent text-white"
+            : scrolled
+              ? "border-surface-200/80 bg-white/[0.90] text-primary shadow-e1 backdrop-blur-xl"
+              : "border-surface-200/60 bg-white/[0.75] text-primary backdrop-blur-md",
         )}
       >
         <div className="container-site flex h-[68px] items-center justify-between gap-4">
           <Logo variant={dark ? "light" : "dark"} />
 
           <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navigasi utama">
-            <div className="group relative">
+            <div
+              className="relative"
+              onMouseEnter={() => setProductsOpen(true)}
+              onMouseLeave={() => setProductsOpen(false)}
+              onFocus={() => setProductsOpen(true)}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setProductsOpen(false);
+              }}
+              onKeyDown={(event) => {
+                if (event.key === "Escape") setProductsOpen(false);
+              }}
+            >
               <Link
                 href="/products"
+                onClick={() => setProductsOpen(false)}
+                aria-expanded={productsOpen}
                 className={cn(
                   "inline-flex items-center gap-1 rounded-md px-3 py-2 text-[0.82rem] font-semibold transition",
                   dark ? "text-white/80 hover:text-white" : "text-primary/75 hover:text-primary",
                 )}
               >
                 {t.nav.products}
-                <ChevronDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-180" aria-hidden />
+                <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-300", productsOpen && "rotate-180")} aria-hidden />
               </Link>
 
-              <div className="invisible absolute left-1/2 top-full z-50 w-[640px] -translate-x-1/2 translate-y-2 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                <div className="overflow-hidden rounded-lg border border-surface-200 bg-white p-2 shadow-e3">
-                  <div className="grid grid-cols-2 gap-1">
+              <div
+                className={cn(
+                  "absolute left-1/2 top-full z-50 w-[700px] -translate-x-1/2 pt-3 transition-all duration-200",
+                  productsOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-2 opacity-0",
+                )}
+              >
+                <div className="surface-industrial overflow-hidden rounded-xl border border-white/10 p-3 shadow-2xl shadow-black/40">
+                  <div className="grid grid-cols-2 gap-2">
                     {categories.map((category) => (
                       <Link
                         key={category.slug}
                         href={`/products?cat=${category.slug}`}
-                        className="group/card flex items-center gap-3 rounded-md p-2 transition hover:bg-surface"
+                        onClick={() => setProductsOpen(false)}
+                        className="group/card flex items-center gap-3.5 rounded-lg border border-transparent p-2.5 transition hover:border-white/10 hover:bg-white/[0.06]"
                       >
                         <Visual
+                          src={categoryCovers[category.slug]}
                           category={category.slug}
                           alt={category.name}
-                          label={category.name}
-                          className="h-16 w-16 shrink-0 rounded-md"
+                          showLabel={false}
+                          showMeta={false}
+                          sizes="88px"
+                          className="h-[72px] w-[88px] shrink-0 rounded-lg ring-1 ring-white/10"
                         />
                         <span className="min-w-0 flex-1">
                           <span className="flex items-center justify-between gap-2">
-                            <span className="font-display text-sm font-bold text-primary">{category.name}</span>
-                            <span className="font-mono text-[0.6rem] text-neutral-400">{category.count}</span>
+                            <span className="font-display text-sm font-bold text-white">{category.name}</span>
+                            <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[0.6rem] text-white/70">
+                              {category.count}
+                            </span>
                           </span>
-                          <span className="mt-0.5 line-clamp-2 block text-[0.72rem] leading-snug text-neutral-500">
+                          <span className="mt-1 line-clamp-2 block text-[0.72rem] leading-snug text-white/55">
                             {category.description}
                           </span>
                         </span>
+                        <ArrowRight className="h-4 w-4 shrink-0 -translate-x-1 text-accent opacity-0 transition group-hover/card:translate-x-0 group-hover/card:opacity-100" aria-hidden />
                       </Link>
                     ))}
                   </div>
                   <Link
                     href="/products"
-                    className="mt-1 flex items-center justify-between rounded-md bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary-700"
+                    onClick={() => setProductsOpen(false)}
+                    className="mt-2 flex items-center justify-between rounded-lg bg-accent px-4 py-3 text-sm font-semibold transition hover:brightness-105"
+                    style={{ color: "rgb(var(--c-on-accent))" }}
                   >
                     {t.header.seeAllProducts}
-                    <ArrowRight className="h-4 w-4 text-accent" aria-hidden />
+                    <ArrowRight className="h-4 w-4" aria-hidden />
                   </Link>
                 </div>
               </div>
@@ -194,7 +243,14 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
             })}
           </nav>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            <ThemeSwitcher
+              current={theme}
+              locale={locale}
+              variant={dark ? "dark" : "light"}
+              showLabel={true}
+              className="inline-flex"
+            />
             <Link
               href={quoteHref}
               className="btn-accent btn-sm hidden md:inline-flex"
@@ -202,13 +258,6 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
               {t.header.quoteCta}
               <ArrowRight className="h-3.5 w-3.5" aria-hidden />
             </Link>
-            <ThemeSwitcher
-              current={theme}
-              locale={locale}
-              variant={dark ? "dark" : "light"}
-              showLabel={false}
-              className="lg:hidden"
-            />
             <button
               type="button"
               onClick={() => setOpen(true)}
@@ -236,13 +285,13 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
             className="absolute inset-0 bg-primary/60 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute inset-y-0 right-0 flex w-full max-w-sm flex-col overflow-y-auto bg-white shadow-e3 animate-fade-up">
-            <div className="flex items-center justify-between border-b border-surface-200 px-5 py-4">
-              <Logo />
+          <div className="surface-industrial absolute inset-y-0 right-0 flex w-full max-w-sm flex-col overflow-y-auto text-white shadow-e3 animate-fade-up">
+            <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+              <Logo variant="light" />
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="flex h-9 w-9 items-center justify-center rounded-md border border-surface-300 text-primary"
+                className="flex h-9 w-9 items-center justify-center rounded-sm border border-white/20 text-white transition hover:border-accent hover:text-accent"
                 aria-label={t.common.close}
               >
                 <X className="h-5 w-5" aria-hidden />
@@ -254,16 +303,16 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="flex items-center justify-between rounded-md px-3 py-3 text-[0.95rem] font-semibold text-primary transition hover:bg-surface"
+                  className="flex items-center justify-between rounded-sm px-3 py-3 text-[0.95rem] font-semibold text-white/85 transition hover:bg-white/[0.06] hover:text-white"
                 >
                   {t.nav[item.key]}
-                  <ArrowRight className="h-4 w-4 text-surface-400" aria-hidden />
+                  <ArrowRight className="h-4 w-4 text-white/30" aria-hidden />
                 </Link>
               ))}
             </nav>
 
-            <div className="border-t border-surface-200 px-4 py-4">
-              <p className="px-1 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-neutral-400">
+            <div className="border-t border-white/10 px-4 py-4">
+              <p className="px-1 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/50">
                 {t.header.productsMega}
               </p>
               <div className="mt-2 grid grid-cols-2 gap-2">
@@ -271,10 +320,10 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
                   <Link
                     key={category.slug}
                     href={`/products?cat=${category.slug}`}
-                    className="rounded-md border border-surface-200 p-3 text-xs font-semibold text-primary transition hover:border-accent/50"
+                    className="rounded-sm border border-white/15 bg-white/[0.04] p-3 text-xs font-semibold text-white/85 transition hover:border-accent/60 hover:text-white"
                   >
                     {category.name}
-                    <span className="mt-1 block font-mono text-[0.6rem] font-normal text-neutral-400">
+                    <span className="mt-1 block font-mono text-[0.6rem] font-normal text-white/40">
                       {category.count} item
                     </span>
                   </Link>
@@ -282,19 +331,20 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
               </div>
             </div>
 
-            <div className="space-y-3 border-t border-surface-200 px-5 py-5">
+            <div className="space-y-3 border-t border-white/10 px-5 py-5">
               <Link href={quoteHref} className="btn-accent w-full">
                 <FileText className="h-4 w-4" aria-hidden />
                 {t.header.quoteCta}
               </Link>
-              <a href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`} className="flex items-center gap-2 text-sm text-neutral-600">
-                <Phone className="h-4 w-4 text-accent-700" aria-hidden /> {contact.phone}
+              <a href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`} className="flex items-center gap-2 text-sm text-white/70">
+                <Phone className="h-4 w-4 text-accent" aria-hidden /> {contact.phone}
               </a>
-              <a href={`mailto:${contact.email}`} className="flex items-center gap-2 text-sm text-neutral-600">
-                <Mail className="h-4 w-4 text-accent-700" aria-hidden /> {contact.email}
+              <a href={`mailto:${contact.email}`} className="flex items-center gap-2 text-sm text-white/70">
+                <Mail className="h-4 w-4 text-accent" aria-hidden /> {contact.email}
               </a>
-              <div className="pt-2">
-                <LocaleSwitcher locale={locale} />
+              <div className="flex items-center justify-between gap-3 border-t border-white/10 pt-3">
+                <ThemeSwitcher current={theme} locale={locale} variant="dark" showLabel={true} />
+                <LocaleSwitcher locale={locale} compact />
               </div>
             </div>
           </div>

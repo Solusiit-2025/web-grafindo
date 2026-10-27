@@ -44,25 +44,25 @@ export async function SiteFooter() {
   }));
 
   return (
-    <footer className="relative overflow-hidden bg-primary text-white">
-      <div className="pattern-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
-      <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-accent/10 blur-3xl" aria-hidden />
+    <footer className="surface-industrial relative overflow-hidden text-white">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" aria-hidden />
+      <div className="pattern-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden />
 
       <div className="container-site relative py-14 md:py-20">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <Logo variant="light" />
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/55">{note}</p>
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/65">{note}</p>
             <SocialLinks links={socials} variant="dark" className="mt-5" />
             <div className="mt-8">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/35">
+              <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/50">
                 {t.footer.certifications}
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {siteConfig.certifications.map((cert) => (
                   <span
                     key={cert}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[0.62rem] font-semibold text-white/60"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.05] px-2.5 py-1 text-[0.62rem] font-semibold text-white/70"
                   >
                     <ShieldCheck className="h-3 w-3 text-accent" aria-hidden />
                     {cert}
@@ -73,18 +73,18 @@ export async function SiteFooter() {
           </div>
 
           <div className="lg:col-span-2">
-            <h2 className="font-display text-xs font-bold uppercase tracking-[0.18em] text-white/40">{t.footer.products}</h2>
+            <h2 className="font-display text-xs font-bold uppercase tracking-[0.18em] text-white/55">{t.footer.products}</h2>
             <ul className="mt-4 space-y-2.5 text-sm">
               {productLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="group inline-flex items-center gap-1.5 text-white/65 transition hover:text-accent">
+                  <Link href={link.href} className="group inline-flex items-center gap-1.5 text-white/70 transition hover:text-accent">
                     {link.label}
                     <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" aria-hidden />
                   </Link>
                 </li>
               ))}
               <li>
-                <Link href="/e-catalog" className="text-white/65 transition hover:text-accent">
+                <Link href="/e-catalog" className="text-white/70 transition hover:text-accent">
                   {t.nav.catalog}
                 </Link>
               </li>
@@ -92,30 +92,30 @@ export async function SiteFooter() {
           </div>
 
           <div className="lg:col-span-2">
-            <h2 className="font-display text-xs font-bold uppercase tracking-[0.18em] text-white/40">{t.footer.company}</h2>
+            <h2 className="font-display text-xs font-bold uppercase tracking-[0.18em] text-white/55">{t.footer.company}</h2>
             <ul className="mt-4 space-y-2.5 text-sm">
-              <li><Link href="/about" className="text-white/65 transition hover:text-accent">{t.nav.about}</Link></li>
-              <li><Link href="/services" className="text-white/65 transition hover:text-accent">{t.nav.services}</Link></li>
-              <li><Link href="/portfolio" className="text-white/65 transition hover:text-accent">{t.nav.portfolio}</Link></li>
-              <li><Link href="/blog" className="text-white/65 transition hover:text-accent">{t.nav.blog}</Link></li>
-              <li><Link href="/contact" className="text-white/65 transition hover:text-accent">{t.nav.contact}</Link></li>
+              <li><Link href="/about" className="text-white/70 transition hover:text-accent">{t.nav.about}</Link></li>
+              <li><Link href="/services" className="text-white/70 transition hover:text-accent">{t.nav.services}</Link></li>
+              <li><Link href="/portfolio" className="text-white/70 transition hover:text-accent">{t.nav.portfolio}</Link></li>
+              <li><Link href="/blog" className="text-white/70 transition hover:text-accent">{t.nav.blog}</Link></li>
+              <li><Link href="/contact" className="text-white/70 transition hover:text-accent">{t.nav.contact}</Link></li>
             </ul>
           </div>
 
           <div className="lg:col-span-2">
-            <h2 className="font-display text-xs font-bold uppercase tracking-[0.18em] text-white/40">{t.footer.support}</h2>
+            <h2 className="font-display text-xs font-bold uppercase tracking-[0.18em] text-white/55">{t.footer.support}</h2>
             <ul className="mt-4 space-y-2.5 text-sm">
-              <li><Link href="/quote" className="text-white/65 transition hover:text-accent">{t.common.quote}</Link></li>
-              <li><Link href="/e-catalog" className="text-white/65 transition hover:text-accent">{t.nav.catalog}</Link></li>
-              <li><Link href="/faq" className="text-white/65 transition hover:text-accent">FAQ</Link></li>
-              <li><Link href="/privacy" className="text-white/65 transition hover:text-accent">{t.footer.privacy}</Link></li>
-              <li><Link href="/terms" className="text-white/65 transition hover:text-accent">{t.footer.terms}</Link></li>
+              <li><Link href="/quote" className="text-white/70 transition hover:text-accent">{t.common.quote}</Link></li>
+              <li><Link href="/e-catalog" className="text-white/70 transition hover:text-accent">{t.nav.catalog}</Link></li>
+              <li><Link href="/faq" className="text-white/70 transition hover:text-accent">FAQ</Link></li>
+              <li><Link href="/privacy" className="text-white/70 transition hover:text-accent">{t.footer.privacy}</Link></li>
+              <li><Link href="/terms" className="text-white/70 transition hover:text-accent">{t.footer.terms}</Link></li>
             </ul>
           </div>
 
           <div className="lg:col-span-2">
-            <h2 className="font-display text-xs font-bold uppercase tracking-[0.18em] text-white/40">{t.footer.contact}</h2>
-            <ul className="mt-4 space-y-3 text-sm text-white/65">
+            <h2 className="font-display text-xs font-bold uppercase tracking-[0.18em] text-white/55">{t.footer.contact}</h2>
+            <ul className="mt-4 space-y-3 text-sm text-white/70">
               <li className="flex gap-2.5">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
                 <span className="leading-relaxed">{address}</span>
@@ -137,7 +137,7 @@ export async function SiteFooter() {
 
             <div className="mt-6 border-t border-white/10 pt-5">
               <p className="font-display text-sm font-semibold text-white">{t.footer.newsletter}</p>
-              <p className="mt-1 text-xs text-white/45">{t.footer.newsletterNote}</p>
+              <p className="mt-1 text-xs text-white/55">{t.footer.newsletterNote}</p>
               <NewsletterForm
                 placeholder={t.footer.newsletterPlaceholder}
                 cta={t.footer.newsletterCta}
@@ -149,7 +149,7 @@ export async function SiteFooter() {
       </div>
 
       <div className="relative border-t border-white/10">
-        <div className="container-site flex flex-col gap-3 py-5 text-[0.7rem] text-white/40 md:flex-row md:items-center md:justify-between">
+        <div className="container-site flex flex-col gap-3 py-5 text-[0.7rem] text-white/55 md:flex-row md:items-center md:justify-between">
           <p>
             © {new Date().getFullYear()} {siteConfig.legalName}. {t.footer.rights}
           </p>

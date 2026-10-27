@@ -80,8 +80,7 @@ function FallbackArt({ kind, label, showMeta = true }: { kind: string; label?: s
         className="absolute inset-0 opacity-[0.14]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
+            "repeating-linear-gradient(135deg, rgba(255,255,255,.3) 0 1px, transparent 1px 22px)",
           maskImage: "radial-gradient(ellipse at 50% 40%, black 20%, transparent 78%)",
         }}
       />

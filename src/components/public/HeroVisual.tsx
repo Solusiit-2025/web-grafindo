@@ -1,10 +1,13 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { BadgeCheck, Layers, ShieldCheck } from "lucide-react";
 import { Visual } from "./Visual";
 
+/**
+ * Hero product showcase — a clean, structured bento layout:
+ * one large Graphic Emblem plate + two supporting tiles (Soft Emblem, Sticker).
+ * No tilt / rotation / floating: precise and professional.
+ */
 export function HeroVisual({
   labels,
   images,
@@ -12,114 +15,94 @@ export function HeroVisual({
   labels: { emblem: string; soft: string; sticker: string };
   images?: { emblem?: string; soft?: string; sticker?: string };
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 120, damping: 20 });
-  const springY = useSpring(y, { stiffness: 120, damping: 20 });
-  const rotateX = useTransform(springY, [-0.5, 0.5], [4, -4]);
-  const rotateY = useTransform(springX, [-0.5, 0.5], [-5, 5]);
-
-  function onMove(event: React.MouseEvent<HTMLDivElement>) {
-    if (reduce) return;
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    x.set((event.clientX - rect.left) / rect.width - 0.5);
-    y.set((event.clientY - rect.top) / rect.height - 0.5);
-  }
-
-  function onLeave() {
-    x.set(0);
-    y.set(0);
-  }
-
   return (
-    <div
-      ref={ref}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      className="relative mx-auto w-full max-w-[560px]"
-      aria-hidden
-    >
-      <div className="pointer-events-none absolute -inset-8 rounded-full bg-accent/15 blur-3xl" />
+    <div className="relative ml-auto w-full max-w-[720px]" aria-hidden>
+      <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-accent/10 blur-3xl" />
 
-      <motion.div
-        style={reduce ? undefined : { rotateX, rotateY, transformPerspective: 1000 }}
-        className="relative"
-      >
-        {/* Main emblem card */}
-        <div className="relative ml-auto w-[76%] rotate-[-3deg] overflow-hidden rounded-xl border border-white/10 bg-primary-800 shadow-e3">
+      <div className="relative grid grid-cols-12 gap-3 sm:gap-4">
+        {/* Main: Graphic Emblem */}
+        <div className="group relative col-span-12 overflow-hidden rounded-2xl border border-white/10 bg-primary-800 shadow-2xl sm:col-span-8 sm:row-span-2">
           <Visual
             src={images?.emblem}
             category="emblems"
             alt={labels.emblem}
             label={labels.emblem}
-            ratio="video"
-            sizes="(max-width: 1024px) 70vw, 420px"
+            ratio="auto"
+            sizes="(max-width: 1024px) 95vw, 480px"
             priority
-            className="rounded-none"
+            className="h-[300px] w-full rounded-none transition-transform duration-700 ease-premium group-hover:scale-[1.03] sm:h-full sm:min-h-[460px]"
             showLabel={false}
             showMeta={false}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary-900/85 via-transparent to-primary-900/20" />
           <div className="absolute inset-x-4 top-4 flex items-center justify-between">
-            <span className="rounded-full border border-white/15 bg-black/30 px-2.5 py-1 font-mono text-[0.55rem] uppercase tracking-[0.16em] text-white/70 backdrop-blur">
-              Premium line
+            <span className="rounded-md border border-white/15 bg-primary-900/60 px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-white/80 backdrop-blur-md">
+              Graphic Emblem
             </span>
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent text-primary">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-primary shadow-lg">
               <BadgeCheck className="h-4 w-4" />
+            </span>
+          </div>
+          <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
+            <div>
+              <p className="font-display text-lg font-bold text-white">{labels.emblem}</p>
+              <p className="mt-0.5 text-xs text-white/60">3D precision · Custom die &amp; finishing</p>
+            </div>
+            <span className="hidden items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1.5 text-[0.65rem] font-medium text-white/85 backdrop-blur-md sm:inline-flex">
+              <Layers className="h-3.5 w-3.5 text-accent" />
+              MOQ 30 pcs
             </span>
           </div>
         </div>
 
-        {/* Sticker card */}
-        <div className="absolute -left-2 top-8 w-[44%] rotate-[5deg] overflow-hidden rounded-lg border border-white/10 bg-primary-800 shadow-e3 animate-float">
+        {/* Soft Emblem */}
+        <div className="group relative col-span-6 overflow-hidden rounded-2xl border border-white/10 bg-primary-800 shadow-xl sm:col-span-4">
+          <Visual
+            src={images?.soft}
+            category="soft-emblems"
+            alt={labels.soft}
+            label={labels.soft}
+            ratio="square"
+            sizes="(max-width: 1024px) 45vw, 230px"
+            className="w-full rounded-none transition-transform duration-700 ease-premium group-hover:scale-[1.05]"
+            showLabel={false}
+            showMeta={false}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary-900/80 to-transparent" />
+          <span className="absolute bottom-3 left-3 rounded-md bg-primary-900/60 px-2 py-1 font-mono text-[0.58rem] uppercase tracking-[0.14em] text-white/85 backdrop-blur-md">
+            Soft Emblem · PVC
+          </span>
+        </div>
+
+        {/* Sticker */}
+        <div className="group relative col-span-6 overflow-hidden rounded-2xl border border-white/10 bg-primary-800 shadow-xl sm:col-span-4">
           <Visual
             src={images?.sticker}
             category="stickers"
             alt={labels.sticker}
             label={labels.sticker}
             ratio="square"
-            sizes="(max-width: 1024px) 40vw, 240px"
-            className="rounded-none"
+            sizes="(max-width: 1024px) 45vw, 230px"
+            className="w-full rounded-none transition-transform duration-700 ease-premium group-hover:scale-[1.05]"
             showLabel={false}
             showMeta={false}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary-900/80 to-transparent" />
+          <span className="absolute bottom-3 left-3 rounded-md bg-primary-900/60 px-2 py-1 font-mono text-[0.58rem] uppercase tracking-[0.14em] text-white/85 backdrop-blur-md">
+            Sticker · Die-cut
+          </span>
         </div>
 
-        {/* Soft emblem card */}
-        <div
-          className="absolute -bottom-6 left-8 w-[48%] rotate-[-6deg] overflow-hidden rounded-lg border border-white/10 bg-primary-800 shadow-e3 animate-float"
-          style={{ animationDelay: "1.4s" }}
-        >
-          <Visual
-            src={images?.soft}
-            category="soft-emblems"
-            alt={labels.soft}
-            label={labels.soft}
-            ratio="video"
-            sizes="(max-width: 1024px) 45vw, 260px"
-            className="rounded-none"
-            showLabel={false}
-            showMeta={false}
-          />
-        </div>
-
-        {/* QC stamp */}
-        <div className="absolute -right-3 bottom-0 flex items-center gap-2 rounded-md border border-white/10 bg-primary/90 px-3 py-2 shadow-e2 backdrop-blur">
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/15 text-accent">
+        {/* QC strip */}
+        <div className="col-span-12 flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 backdrop-blur-md">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
             <ShieldCheck className="h-4 w-4" />
           </span>
           <span className="leading-tight">
-            <span className="block font-mono text-[0.55rem] uppercase tracking-[0.15em] text-white/40">QC</span>
-            <span className="block text-[0.68rem] font-semibold text-white/85">Batch verified</span>
+            <span className="block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-white/45">QC Verified</span>
+            <span className="block text-xs font-semibold text-white/90">Automotive Standard · ISO 9001:2015</span>
           </span>
         </div>
-      </motion.div>
-
-      <div className="absolute -left-6 -top-6 hidden items-center gap-2 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-[0.62rem] font-medium text-white/65 backdrop-blur sm:flex">
-        <Layers className="h-3.5 w-3.5 text-accent" />
-        MOQ 30 pcs
       </div>
     </div>
   );

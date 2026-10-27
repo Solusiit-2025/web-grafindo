@@ -68,9 +68,10 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 
   return (
     <>
-      <div className="border-b border-surface-200 bg-white">
-        <div className="container-site py-4">
+      <div className="surface-industrial border-b border-white/10 text-white">
+        <div className="container-site relative py-4">
           <Breadcrumb
+            className="text-white/55 [&_[aria-current=page]]:text-white [&_a:hover]:text-accent [&_svg]:text-white/30"
             items={[
               { label: t.common.home, href: "/" },
               { label: t.nav.blog, href: "/blog" },
@@ -146,9 +147,9 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                 </div>
               )}
 
-              <div className="mt-10 overflow-hidden rounded-xl bg-primary p-6 text-white sm:p-8">
-                <h2 className="font-display text-xl font-bold">{t.blog.ctaTitle}</h2>
-                <p className="mt-1.5 text-sm text-white/55">{t.about.lead}</p>
+              <div className="panel-industrial mt-10 p-6 sm:p-8">
+                <h2 className="relative font-display text-xl font-bold">{t.blog.ctaTitle}</h2>
+                <p className="relative mt-1.5 text-sm text-white/70">{t.about.lead}</p>
                 <ButtonLink href="/quote" className="mt-4" iconRight={<ArrowRight className="h-4 w-4" aria-hidden />}>
                   {t.blog.ctaCta}
                 </ButtonLink>

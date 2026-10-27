@@ -27,7 +27,12 @@ export function SectionHeader({
       )}
     >
       <div className={cn("max-w-2xl", align === "center" && "mx-auto")}>
-        {eyebrow && <p className={cn("eyebrow", dark && "eyebrow-dark")}>{eyebrow}</p>}
+        {eyebrow && (
+          <p className={cn("eyebrow", dark && "eyebrow-dark")}>
+            <span className="accent-rule" aria-hidden />
+            {eyebrow}
+          </p>
+        )}
         <h2 className={cn("mt-4 heading-2", dark && "text-white")}>{title}</h2>
         {lead && <p className={cn("mt-4 lead", dark && "text-white/65")}>{lead}</p>}
       </div>

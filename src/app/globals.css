@@ -328,7 +328,7 @@
 
   /* ------------------------- Buttons ------------------------- */
   .btn {
-    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-md px-5 py-3 text-sm font-semibold transition-all duration-300 ease-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60;
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-sm px-5 py-3 text-sm font-semibold transition-all duration-300 ease-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60;
   }
 
   .btn-sm {
@@ -411,6 +411,16 @@
     @apply hover:-translate-y-1 hover:border-accent/30 hover:shadow-e3;
   }
 
+  /* Dark industrial panel used inside light sections (CTA, highlights, aside). */
+  .panel-industrial {
+    @apply relative overflow-hidden rounded-lg border border-white/10 text-white;
+    background-color: rgb(var(--c-primary-900));
+    background-image:
+      radial-gradient(700px 380px at 88% -12%, rgb(var(--c-accent) / 0.16), transparent 62%),
+      repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 14px),
+      linear-gradient(180deg, rgb(var(--c-primary-900)) 0%, rgb(var(--c-primary-800)) 100%);
+  }
+
   .glass {
     @apply border border-white/10 bg-white/[0.04] backdrop-blur-xl;
   }
@@ -425,17 +435,68 @@
 
   /* Decorative patterns */
   .pattern-grid {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse at 50% 0%, black 35%, transparent 78%);
+    background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 16px);
+    mask-image: radial-gradient(ellipse at 70% 0%, black 30%, transparent 80%);
   }
 
-  .pattern-grid-light {
-    background-image: linear-gradient(rgba(15, 17, 21, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(15, 17, 21, 0.05) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
+  /* ------------------------- Modern Industrial Backgrounds -------------------------
+     Clean surfaces (no weave / grid). Legacy class names are kept so existing pages
+     inherit the new look: texture-* = section background, pattern-* = soft light accent. */
+
+  /* Soft diagonal light-beam accent (replaces all legacy weave / grid patterns) */
+  .pattern-linen,
+  .pattern-fabric,
+  .pattern-technical,
+  .pattern-grid-light,
+  .pattern-dots-light,
+  .pattern-canvas,
+  .pattern-twill,
+  .pattern-silk,
+  .pattern-craft,
+  .pattern-oxford,
+  .pattern-bookcloth {
+    background-image:
+      linear-gradient(115deg, transparent 38%, rgb(var(--c-accent) / 0.055) 50%, transparent 62%),
+      radial-gradient(60% 50% at 100% 0%, rgb(var(--c-accent) / 0.07), transparent 70%);
+  }
+
+  /* Light section: crisp white fading to a cool surface tone */
+  .texture-subtle,
+  .texture-fabric-linen,
+  .texture-fabric-canvas,
+  .texture-fabric-twill,
+  .texture-fabric-silk,
+  .texture-fabric-craft,
+  .texture-fabric-oxford,
+  .texture-fabric-bookcloth {
+    background-color: rgb(var(--c-surface));
+    background-image: linear-gradient(180deg, #ffffff 0%, rgb(var(--c-surface)) 100%);
+  }
+
+  /* Tinted section: slightly deeper surface for alternating rhythm */
+  .texture-subtle-alt {
+    background-color: rgb(var(--c-surface));
+    background-image: linear-gradient(180deg, rgb(var(--c-surface)) 0%, rgb(var(--c-surface-200) / 0.75) 100%);
+  }
+
+  /* Dark industrial surface: charcoal, accent glow, fine diagonal machining lines */
+  .surface-industrial {
+    position: relative;
+    background-color: rgb(var(--c-primary-900));
+    background-image:
+      radial-gradient(900px 480px at 85% -10%, rgb(var(--c-accent) / 0.16), transparent 62%),
+      radial-gradient(700px 400px at 0% 110%, rgb(var(--c-secondary) / 0.35), transparent 65%),
+      repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 14px),
+      linear-gradient(180deg, rgb(var(--c-primary-900)) 0%, rgb(var(--c-primary-800)) 100%);
+  }
+
+  /* Accent rule used above eyebrows / headings */
+  .accent-rule {
+    display: block;
+    width: 44px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--grad-gold);
   }
 
   .noise {

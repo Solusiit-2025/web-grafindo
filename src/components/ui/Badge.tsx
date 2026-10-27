@@ -1,7 +1,16 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils/cn";
 
-export type BadgeTone = "neutral" | "gold" | "steel" | "success" | "warning" | "danger" | "dark" | "outline";
+export type BadgeTone =
+  | "neutral"
+  | "gold"
+  | "steel"
+  | "success"
+  | "warning"
+  | "danger"
+  | "dark"
+  | "outline"
+  | "onDark";
 
 const tones: Record<BadgeTone, string> = {
   neutral: "bg-surface text-primary/70 border-surface-300",
@@ -12,6 +21,7 @@ const tones: Record<BadgeTone, string> = {
   danger: "bg-danger-50 text-danger border-danger/20",
   dark: "bg-primary text-white border-primary",
   outline: "bg-transparent text-primary/70 border-surface-300",
+  onDark: "bg-white/[0.08] text-white/85 border-white/20 backdrop-blur-sm",
 };
 
 export function Badge({

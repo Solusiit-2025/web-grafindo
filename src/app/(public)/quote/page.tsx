@@ -6,6 +6,7 @@ import { getLocale } from "@/lib/i18n/locale";
 import { getMessages } from "@/i18n";
 import { PageHero } from "@/components/public/PageHero";
 import { QuoteForm } from "@/components/public/QuoteForm";
+import { Badge } from "@/components/ui/Badge";
 import { siteConfig, waLink } from "@/config/site";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -51,21 +52,24 @@ export default async function QuotePage({
         eyebrow={t.quote.eyebrow}
         title={t.quote.title}
         lead={t.quote.lead}
+        texture="oxford"
         meta={
-          <div className="flex flex-wrap items-center gap-2 text-xs text-neutral-500">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-surface-300 bg-white px-3 py-1.5">
-              <Clock className="h-3.5 w-3.5 text-accent-700" aria-hidden />
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge tone="onDark" className="px-3 py-1.5">
+              <Clock className="h-3.5 w-3.5 text-accent" aria-hidden />
               {t.quote.asidePoints[0]}
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-surface-300 bg-white px-3 py-1.5">
-              <ShieldCheck className="h-3.5 w-3.5 text-accent-700" aria-hidden />
+            </Badge>
+            <Badge tone="onDark" className="px-3 py-1.5">
+              <ShieldCheck className="h-3.5 w-3.5 text-accent" aria-hidden />
               NDA available
-            </span>
+            </Badge>
           </div>
         }
       />
 
-      <section className="container-site py-10 md:py-14">
+      <section className="texture-fabric-oxford relative overflow-hidden py-10 md:py-14">
+        <div className="pattern-oxford pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="container-site relative">
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <QuoteForm
@@ -90,13 +94,13 @@ export default async function QuotePage({
 
           <aside className="lg:col-span-4">
             <div className="space-y-4 lg:sticky lg:top-28">
-              <div className="relative overflow-hidden rounded-xl bg-grad-steel p-6 text-white shadow-e2">
+              <div className="panel-industrial p-6 shadow-e2">
                 <div className="pattern-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden />
                 <div className="relative">
                   <h2 className="font-display text-lg font-bold">{t.quote.asideTitle}</h2>
                   <ul className="mt-4 space-y-3">
                     {t.quote.asidePoints.map((point) => (
-                      <li key={point} className="flex items-start gap-2.5 text-sm text-white/65">
+                      <li key={point} className="flex items-start gap-2.5 text-sm text-white/70">
                         <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
                         {point}
                       </li>
@@ -104,11 +108,11 @@ export default async function QuotePage({
                   </ul>
 
                   <div className="mt-6 border-t border-white/10 pt-4">
-                    <p className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-white/35">
+                    <p className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-white/55">
                       {t.quote.salesLabel}
                     </p>
                     <p className="mt-1 text-sm font-semibold text-white">{t.quote.salesName}</p>
-                    <div className="mt-3 space-y-2 text-xs text-white/55">
+                    <div className="mt-3 space-y-2 text-xs text-white/65">
                       <a href={`tel:${siteConfig.phoneHref}`} className="flex items-center gap-2 transition hover:text-accent">
                         <Phone className="h-3.5 w-3.5 text-accent" aria-hidden />
                         {siteConfig.phone}
@@ -156,6 +160,7 @@ export default async function QuotePage({
               </div>
             </div>
           </aside>
+        </div>
         </div>
       </section>
     </>

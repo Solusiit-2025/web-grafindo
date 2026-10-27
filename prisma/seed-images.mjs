@@ -4,53 +4,52 @@ const prisma = new PrismaClient();
 
 const productImages = {
   "die-cut-vinyl-sticker": [
-    "/images/products/sticker-sheet-gt.png",
-    "/images/products/beat-graphics.png",
-    "/images/products/sticker-sheet-outline.png",
+    "/images/products/cat-stickers.jpg",
+    "/images/products/die-cut-stickers.jpg",
   ],
   "clear-sticker": [
-    "/images/products/caution-label.png",
-    "/images/products/blue-core-emblem.png",
+    "/images/products/clear-sticker-bottle.jpg",
+    "/images/products/cat-stickers.jpg",
   ],
   "large-format-banner": [
-    "/images/products/motorcycle-graphics-1.jpg",
-    "/images/products/sonic-graphics.png",
+    "/images/products/cat-graphics.jpg",
+    "/images/products/motorcycle-graphics.jpg",
   ],
   "vinyl-sticker-roll": [
-    "/images/products/sticker-sheet-red.png",
-    "/images/products/r25-graphic.png",
+    "/images/products/vinyl-rolls.jpg",
+    "/images/products/cat-stickers.jpg",
   ],
   "metal-emblem-badge": [
-    "/images/products/suzuki-emblem.jpg",
-    "/images/products/s-shield-emblem.png",
+    "/images/products/cat-emblems.jpg",
+    "/images/products/chrome-badges.jpg",
   ],
   "chrome-emblem": [
-    "/images/products/adx-150-emblem.jpg",
-    "/images/products/scoopy-emblem.png",
+    "/images/products/hero-showcase.jpg",
+    "/images/products/cat-emblems.jpg",
   ],
   "rubber-soft-emblem": [
-    "/images/products/adv-160-emblem.jpg",
-    "/images/products/scoopy-soft-emblem.png",
+    "/images/products/cat-soft-emblems.jpg",
+    "/images/products/rubber-soft-emblems.jpg",
   ],
   "embroidered-patch": [
-    "/images/products/fox-s-emblem.png",
-    "/images/products/blue-core-emblem.png",
+    "/images/products/cat-soft-emblems.jpg",
+    "/images/products/rubber-soft-emblems.jpg",
   ],
 };
 
 const portfolioImages = {
-  "branding-kopi-nusantara": ["/images/products/sticker-sheet-red.png", "/images/products/beat-graphics.png"],
-  "jersey-tim-sepakbola": ["/images/products/adv-160-emblem.jpg", "/images/products/fox-s-emblem.png"],
-  "signage-toko-retail": ["/images/products/motorcycle-graphics-2.jpg", "/images/products/sticker-sheet-gt.png"],
-  "badge-kendaraan-premium": ["/images/products/adx-150-emblem.jpg", "/images/products/suzuki-emblem.jpg"],
-  "label-kemasan-premium": ["/images/products/caution-label.png", "/images/products/sticker-sheet-outline.png"],
-  "emblem-custom-motor": ["/images/products/s-shield-emblem.png", "/images/products/scoopy-emblem.png"],
+  "branding-kopi-nusantara": ["/images/products/cat-stickers.jpg", "/images/products/clear-sticker-bottle.jpg"],
+  "jersey-tim-sepakbola": ["/images/products/cat-soft-emblems.jpg", "/images/products/rubber-soft-emblems.jpg"],
+  "signage-toko-retail": ["/images/products/cat-graphics.jpg", "/images/products/motorcycle-graphics.jpg"],
+  "badge-kendaraan-premium": ["/images/products/hero-showcase.jpg", "/images/products/cat-emblems.jpg"],
+  "label-kemasan-premium": ["/images/products/clear-sticker-bottle.jpg", "/images/products/cat-stickers.jpg"],
+  "emblem-custom-motor": ["/images/products/cat-emblems.jpg", "/images/products/hero-showcase.jpg"],
 };
 
 const blogImages = {
-  "memilih-material-sticker": "/images/products/sticker-sheet-gt.png",
-  "perbedaan-emblem-metal-soft": "/images/products/fox-s-emblem.png",
-  "tips-perawatan-sticker-outdoor": "/images/products/motorcycle-graphics-2.jpg",
+  "memilih-material-sticker": "/images/products/cat-stickers.jpg",
+  "perbedaan-emblem-metal-soft": "/images/products/hero-showcase.jpg",
+  "tips-perawatan-sticker-outdoor": "/images/products/cat-graphics.jpg",
 };
 
 const clients = [
@@ -63,31 +62,26 @@ const clients = [
 ];
 
 async function main() {
+  // Clear and update product images
+  await prisma.productImage.deleteMany();
   for (const [slug, images] of Object.entries(productImages)) {
     const product = await prisma.product.findUnique({ where: { slug } });
     if (!product) continue;
-    const count = await prisma.productImage.count({ where: { productId: product.id } });
-    if (count === 0) {
-      await prisma.productImage.createMany({
-        data: images.map((url, order) => ({ productId: product.id, url, alt: product.name, order })),
-      });
-    }
+    await prisma.productImage.createMany({
+      data: images.map((url, order) => ({ productId: product.id, url, alt: product.name, order })),
+    });
   }
 
   for (const [slug, images] of Object.entries(portfolioImages)) {
     const item = await prisma.portfolio.findUnique({ where: { slug } });
     if (!item) continue;
-    if (item.images.length === 0) {
-      await prisma.portfolio.update({ where: { id: item.id }, data: { images } });
-    }
+    await prisma.portfolio.update({ where: { id: item.id }, data: { images } });
   }
 
   for (const [slug, image] of Object.entries(blogImages)) {
     const post = await prisma.blogPost.findUnique({ where: { slug } });
     if (!post) continue;
-    if (!post.featuredImage) {
-      await prisma.blogPost.update({ where: { id: post.id }, data: { featuredImage: image } });
-    }
+    await prisma.blogPost.update({ where: { id: post.id }, data: { featuredImage: image } });
   }
 
   await prisma.clientLogo.deleteMany();

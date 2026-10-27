@@ -68,11 +68,12 @@ const fallbackTestimonials = [
 ];
 
 const categoryCovers: Record<string, string> = {
-  stickers: "/images/products/sticker-sheet-gt.png",
-  graphics: "/images/products/motorcycle-graphics-1.jpg",
-  emblems: "/images/products/adx-150-emblem.jpg",
-  "soft-emblems": "/images/products/adv-160-emblem.jpg",
+  stickers: "/images/products/cat-stickers.jpg",
+  graphics: "/images/products/cat-graphics.jpg",
+  emblems: "/images/products/cat-emblems.jpg",
+  "soft-emblems": "/images/products/cat-soft-emblems.jpg",
 };
+
 
 const defaultOrder = [
   "hero",
@@ -160,13 +161,13 @@ export default async function HomePage({
 
   const sectionMap: Record<string, React.ReactNode> = {
     hero: (
-      <section key="hero" className="relative overflow-hidden bg-grad-hero text-white">
+      <section key="hero" className="relative overflow-hidden surface-industrial text-white -mt-[68px] lg:-mt-[104px] pt-[68px] lg:pt-[104px]">
         <div className="pattern-grid pointer-events-none absolute inset-0" aria-hidden />
         <div className="pointer-events-none absolute -right-40 top-0 h-[520px] w-[520px] rounded-full bg-accent/10 blur-3xl" aria-hidden />
         <div className="noise pointer-events-none absolute inset-0" aria-hidden />
 
-        <div className="container-site relative grid items-center gap-14 pb-16 pt-12 md:pb-24 md:pt-16 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-6">
+        <div className="container-site relative grid items-start gap-12 pb-16 pt-12 md:pb-24 md:pt-16 lg:grid-cols-12 lg:gap-8 xl:gap-12">
+          <div className="lg:col-span-5 xl:col-span-5">
             <Reveal>
               <p className="eyebrow eyebrow-dark">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
@@ -177,7 +178,7 @@ export default async function HomePage({
               <h1 className="mt-5 font-display text-display-xl text-white">{title}</h1>
             </Reveal>
             <Reveal delay={0.12}>
-              <p className="mt-6 max-w-xl text-base leading-relaxed text-white/60 md:text-lg">{subtitle}</p>
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">{subtitle}</p>
             </Reveal>
 
             <Reveal delay={0.18}>
@@ -194,7 +195,7 @@ export default async function HomePage({
             <Reveal delay={0.24}>
               <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5">
                 {t.home.trustChipsFallback.map((chip) => (
-                  <li key={chip} className="inline-flex items-center gap-1.5 text-xs text-white/55">
+                  <li key={chip} className="inline-flex items-center gap-1.5 text-xs text-white/65">
                     <Check className="h-3.5 w-3.5 text-accent" aria-hidden />
                     {chip}
                   </li>
@@ -214,21 +215,21 @@ export default async function HomePage({
                     </span>
                   ))}
                 </div>
-                <p className="text-xs text-white/45">
-                  {t.home.heroNote} · <span className="text-white/75">480+</span>
+                <p className="text-xs text-white/60">
+                  {t.home.heroNote} · <span className="text-white/85">480+</span>
                 </p>
               </div>
             </Reveal>
           </div>
 
-          <div className="lg:col-span-6">
-            <Reveal delay={0.15} y={32}>
+          <div className="lg:col-span-7 xl:col-span-7">
+            <Reveal delay={0.15} y={0}>
               <HeroVisual
                 labels={t.home.heroCardLabels}
                 images={{
-                  emblem: "/images/products/suzuki-emblem.jpg",
-                  soft: "/images/products/adv-160-emblem.jpg",
-                  sticker: "/images/products/sticker-sheet-gt.png",
+                  emblem: "/images/hero/hero-showcase.jpg",
+                  soft: "/images/products/cat-soft-emblems.jpg",
+                  sticker: "/images/products/cat-stickers.jpg",
                 }}
               />
             </Reveal>
@@ -236,7 +237,7 @@ export default async function HomePage({
         </div>
 
         <div className="relative border-t border-white/10">
-          <div className="container-site flex items-center justify-between gap-4 py-4 text-[0.65rem] uppercase tracking-[0.18em] text-white/35">
+          <div className="container-site flex items-center justify-between gap-4 py-4 text-[0.65rem] uppercase tracking-[0.18em] text-white/50">
             <span className="inline-flex items-center gap-2">
               <Factory className="h-3.5 w-3.5 text-accent" aria-hidden />
               Cikarang · Jawa Barat
@@ -252,8 +253,9 @@ export default async function HomePage({
     ),
 
     trust: (
-      <section key="trust" className="border-b border-surface-200 bg-white py-8">
-        <div className="container-site">
+      <section key="trust" className="relative overflow-hidden border-b border-surface-200/80 bg-white py-8">
+        <div className="pattern-dots-light pointer-events-none absolute inset-0 opacity-40" aria-hidden />
+        <div className="container-site relative">
           <p className="text-center text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-neutral-400">
             {t.common.trustedBy} BUMN · Automotive · Apparel · FMCG
           </p>
@@ -264,11 +266,11 @@ export default async function HomePage({
                 className="mx-6 inline-flex h-9 w-32 items-center justify-center sm:mx-9"
               >
                 {logo.logoUrl ? (
-                  <span className="relative h-8 w-full opacity-60 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0">
+                  <span className="relative h-8 w-full opacity-65 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0">
                     <Image src={logo.logoUrl} alt={logo.name} fill sizes="128px" className="object-contain" />
                   </span>
                 ) : (
-                  <span className="whitespace-nowrap font-display text-base font-bold uppercase tracking-[0.12em] text-primary/30 transition hover:text-primary/70 sm:text-lg">
+                  <span className="whitespace-nowrap font-display text-base font-bold uppercase tracking-[0.12em] text-primary/35 transition hover:text-accent sm:text-lg">
                     {logo.name}
                   </span>
                 )}
@@ -280,8 +282,10 @@ export default async function HomePage({
     ),
 
     categories: (
-      <section key="categories" className="section bg-white">
-        <div className="container-site">
+      <section key="categories" className="section texture-fabric-linen relative overflow-hidden border-b border-surface-200/70">
+        <div className="pattern-linen pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="pointer-events-none absolute -right-32 top-10 h-96 w-96 rounded-full bg-accent/5 blur-3xl" aria-hidden />
+        <div className="container-site relative">
           <Reveal>
             <SectionHeader
               eyebrow={t.home.categoriesEyebrow}
@@ -354,7 +358,7 @@ export default async function HomePage({
     ),
 
     stats: (
-      <section key="stats" className="relative overflow-hidden bg-grad-steel py-14 text-white md:py-20">
+      <section key="stats" className="relative overflow-hidden surface-industrial py-14 text-white md:py-20">
         <div className="pattern-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
         <div className="container-site relative">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
@@ -372,7 +376,7 @@ export default async function HomePage({
                     <p className="font-display text-3xl font-extrabold text-accent sm:text-4xl">
                       <Counter value={stat.value} suffix={stat.suffix ?? ""} decimals={decimals} />
                     </p>
-                    <p className="mt-2 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/45">{label}</p>
+                    <p className="mt-2 text-[0.68rem] font-medium uppercase tracking-[0.14em] text-white/60">{label}</p>
                   </div>
                 );
               })}
@@ -383,8 +387,10 @@ export default async function HomePage({
     ),
 
     process: (
-      <section key="process" className="section bg-surface">
-        <div className="container-site">
+      <section key="process" className="section bg-white relative overflow-hidden border-b border-surface-200/70">
+        <div className="pattern-linen pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="pointer-events-none absolute -left-20 top-20 h-96 w-96 rounded-full bg-secondary/5 blur-3xl" aria-hidden />
+        <div className="container-site relative">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">
               <Reveal>
@@ -434,8 +440,10 @@ export default async function HomePage({
     ),
 
     featured: (
-      <section key="featured" className="section bg-white">
-        <div className="container-site">
+      <section key="featured" className="section texture-subtle relative overflow-hidden border-b border-surface-200/70">
+        <div className="pattern-dots-light pointer-events-none absolute inset-0 opacity-75" aria-hidden />
+        <div className="pointer-events-none absolute -right-24 top-0 h-96 w-96 rounded-full bg-accent/5 blur-3xl" aria-hidden />
+        <div className="container-site relative">
           <Reveal>
             <SectionHeader
               eyebrow={t.home.featuredEyebrow}
@@ -478,8 +486,10 @@ export default async function HomePage({
     ),
 
     portfolio: (
-      <section key="portfolio" className="section bg-surface">
-        <div className="container-site">
+      <section key="portfolio" className="section texture-subtle-alt relative overflow-hidden border-b border-surface-200/70">
+        <div className="pattern-technical pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="pointer-events-none absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-secondary/5 blur-3xl" aria-hidden />
+        <div className="container-site relative">
           <Reveal>
             <SectionHeader
               eyebrow={t.home.portfolioEyebrow}
@@ -513,8 +523,10 @@ export default async function HomePage({
     ),
 
     testimonials: (
-      <section key="testimonials" className="section bg-white">
-        <div className="container-site grid gap-10 lg:grid-cols-12 lg:items-center">
+      <section key="testimonials" className="section texture-fabric-linen relative overflow-hidden border-b border-surface-200/70">
+        <div className="pattern-linen pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="pointer-events-none absolute right-1/4 top-10 h-80 w-80 rounded-full bg-accent/5 blur-3xl" aria-hidden />
+        <div className="container-site relative grid gap-10 lg:grid-cols-12 lg:items-center">
           <Reveal className="lg:col-span-5">
             <SectionHeader eyebrow={t.home.testimonialsEyebrow} title={t.home.testimonialsTitle} lead={t.home.testimonialsLead} />
             <div className="mt-8 flex items-center gap-4 border-t border-surface-200 pt-6">
@@ -538,8 +550,9 @@ export default async function HomePage({
     ),
 
     articles: (
-      <section key="articles" className="section bg-surface">
-        <div className="container-site">
+      <section key="articles" className="section bg-white relative overflow-hidden border-b border-surface-200/70">
+        <div className="pattern-linen pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="container-site relative">
           <Reveal>
             <SectionHeader
               eyebrow={t.home.articlesEyebrow}
@@ -601,22 +614,14 @@ export default async function HomePage({
     ),
 
     cta: (
-      <section key="cta" className="section bg-white">
-        <div className="container-site">
+      <section key="cta" className="section texture-fabric-linen relative overflow-hidden">
+        <div className="pattern-linen pointer-events-none absolute inset-0 opacity-65" aria-hidden />
+        <div className="container-site relative">
           <Reveal>
-            <div className="relative overflow-hidden rounded-xl bg-primary px-6 py-12 text-white shadow-e3 sm:px-10 md:px-14 md:py-16">
-              <div className="noise absolute inset-0" aria-hidden />
-              <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-accent/20 blur-3xl" aria-hidden />
-              <div
-                className="absolute inset-0 opacity-30"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)",
-                  backgroundSize: "56px 56px",
-                  maskImage: "radial-gradient(ellipse at 70% 0%, black, transparent 75%)",
-                }}
-                aria-hidden
-              />
+            <div className="panel-industrial px-6 py-12 shadow-e3 sm:px-10 md:px-14 md:py-16">
+              <div className="noise pointer-events-none absolute inset-0" aria-hidden />
+              <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-accent/20 blur-3xl" aria-hidden />
+              <div className="pattern-grid pointer-events-none absolute inset-0 opacity-70" aria-hidden />
               <div className="relative grid gap-8 lg:grid-cols-12 lg:items-center">
                 <div className="lg:col-span-8">
                   <p className="eyebrow eyebrow-dark">
@@ -624,7 +629,7 @@ export default async function HomePage({
                     {t.home.ctaNote}
                   </p>
                   <h2 className="mt-4 font-display text-display-md text-white">{t.home.ctaTitle}</h2>
-                  <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/55 md:text-base">{t.home.ctaLead}</p>
+                  <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/70 md:text-base">{t.home.ctaLead}</p>
                 </div>
                 <div className="flex flex-col gap-3 lg:col-span-4">
                   <ButtonLink href="/quote" size="lg" iconRight={<ArrowRight className="h-4 w-4" aria-hidden />}>
@@ -635,7 +640,7 @@ export default async function HomePage({
                   </ButtonLink>
                   <a
                     href={`tel:${siteConfig.phoneHref}`}
-                    className="mt-1 text-center font-mono text-xs text-white/45 transition hover:text-accent"
+                    className="mt-1 text-center font-mono text-xs text-white/60 transition hover:text-accent"
                   >
                     {siteConfig.phone}
                   </a>

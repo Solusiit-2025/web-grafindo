@@ -25,10 +25,10 @@ export async function generateMetadata(): Promise<Metadata> {
 const icons = [PenTool, Factory, Boxes, FlaskConical];
 const categories = ["stickers", "graphics", "emblems", "soft-emblems"];
 const serviceImages = [
-  "/images/products/sticker-sheet-gt.png",
+  "/images/products/cat-stickers.jpg",
   "/images/facility/printing-machine.jpg",
-  "/images/products/suzuki-emblem.jpg",
-  "/images/products/adv-160-emblem.jpg",
+  "/images/products/cat-emblems.jpg",
+  "/images/products/cat-soft-emblems.jpg",
 ];
 
 export default async function ServicesPage() {
@@ -51,6 +51,7 @@ export default async function ServicesPage() {
         eyebrow={t.services.eyebrow}
         title={t.services.title}
         lead={t.services.lead}
+        texture="twill"
         action={
           <ButtonLink href="/quote" iconRight={<ArrowRight className="h-4 w-4" aria-hidden />}>
             {t.services.ctaCta}
@@ -58,7 +59,9 @@ export default async function ServicesPage() {
         }
       />
 
-      <section className="container-site section">
+      <div className="texture-fabric-twill relative overflow-hidden">
+        <div className="pattern-twill pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <section className="container-site section relative">
         <div className="grid gap-4 md:grid-cols-2">
           {serviceItems.map((item, index) => {
             const Icon = icons[index] ?? PenTool;
@@ -171,14 +174,15 @@ export default async function ServicesPage() {
           </div>
         </div>
       </section>
+      </div>
 
       <section className="container-site section">
-        <div className="relative overflow-hidden rounded-xl bg-primary p-8 text-white sm:p-12">
+        <div className="panel-industrial p-8 sm:p-12">
           <div className="pattern-grid pointer-events-none absolute inset-0" aria-hidden />
           <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-xl">
               <h2 className="font-display text-2xl font-bold sm:text-3xl">{t.services.ctaTitle}</h2>
-              <p className="mt-2 text-sm text-white/55">{t.services.ctaLead}</p>
+              <p className="mt-2 text-sm text-white/70">{t.services.ctaLead}</p>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row">
               <ButtonLink href="/quote" size="lg">

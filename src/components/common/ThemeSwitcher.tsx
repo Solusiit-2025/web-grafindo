@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Check, ChevronDown, Palette } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { normalizeTheme, themes, type ThemeId } from "@/config/themes";
 import { cn } from "@/lib/utils/cn";
 
@@ -78,13 +78,16 @@ export function ThemeSwitcher({
             : "border-surface-300 bg-white text-primary/70 hover:border-accent/60 hover:text-primary",
         )}
       >
-        <Palette className="h-3.5 w-3.5 shrink-0" aria-hidden />
+        <span
+          className="h-2.5 w-2.5 shrink-0 rounded-full border border-black/20 shadow-e1"
+          style={{ backgroundColor: activeTheme.swatches[1] }}
+          aria-hidden
+        />
         {showLabel && (
-          <span className="hidden whitespace-nowrap lg:inline 2xl:hidden">
-            {locale === "en" ? "Theme" : "Tema"}
+          <span className="whitespace-nowrap text-[0.72rem] font-semibold">
+            {activeTheme.name[locale]}
           </span>
         )}
-        {showLabel && <span className="hidden whitespace-nowrap 2xl:inline">{activeTheme.name[locale]}</span>}
         <ChevronDown
           className={cn("h-3 w-3 shrink-0 transition-transform", open && "rotate-180")}
           aria-hidden

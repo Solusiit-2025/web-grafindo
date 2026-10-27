@@ -35,9 +35,11 @@ export function LocaleSwitcher({ locale, compact = false }: { locale: "id" | "en
           className={cn(
             "rounded-full px-2 py-1 uppercase tracking-wide transition",
             locale === code
-              ? "bg-primary text-white"
+              ? compact
+                ? "bg-white text-primary"
+                : "bg-primary text-white"
               : compact
-                ? "text-white/60 hover:text-white"
+                ? "text-white/70 hover:text-white"
                 : "text-neutral-500 hover:text-primary",
           )}
         >

@@ -115,15 +115,16 @@ export default async function ECatalogPage({
             <Badge tone="gold" dot>
               {t.common.validUntil} {formatDate(validUntil, locale === "en" ? "en-US" : "id-ID")}
             </Badge>
-            <Badge tone="steel">
-              <ShieldCheck className="h-3 w-3" aria-hidden />
+            <Badge tone="onDark">
+              <ShieldCheck className="h-3 w-3 text-accent" aria-hidden />
               BUMN / Procurement ready
             </Badge>
           </div>
         }
+        texture="bookcloth"
         action={
           <div className="flex flex-col gap-2 sm:flex-row lg:flex-col">
-            <ButtonLink href={pdfHref} variant="outline" iconLeft={<FileCheck2 className="h-4 w-4" aria-hidden />}>
+            <ButtonLink href={pdfHref} variant="outlineLight" iconLeft={<FileCheck2 className="h-4 w-4" aria-hidden />}>
               {t.common.downloadPdf}
             </ButtonLink>
             <ButtonLink href="/quote" iconRight={<ArrowRight className="h-4 w-4" aria-hidden />}>
@@ -133,8 +134,10 @@ export default async function ECatalogPage({
         }
       />
 
-      <section className="container-site py-10 md:py-14">
-        <div className="grid gap-3 sm:grid-cols-3">
+      <section className="texture-fabric-bookcloth relative overflow-hidden py-10 md:py-14">
+        <div className="pattern-bookcloth pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="container-site relative">
+          <div className="grid gap-3 sm:grid-cols-3">
           <div className="rounded-md border border-surface-200 bg-white p-4 shadow-e1">
             <p className="text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-neutral-400">SKU aktif</p>
             <p className="mt-1 font-display text-2xl font-extrabold text-primary">{rows.length}</p>
@@ -224,6 +227,7 @@ export default async function ECatalogPage({
               }
             />
           )}
+        </div>
         </div>
       </section>
     </>

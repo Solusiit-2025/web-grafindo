@@ -43,11 +43,12 @@ export default async function AboutPage() {
         eyebrow={t.about.eyebrow}
         title={t.about.title}
         lead={t.about.lead}
+        texture="craft"
         meta={
           <div className="flex flex-wrap gap-2">
-            <Badge tone="dark">{siteConfig.legalName}</Badge>
+            <Badge tone="onDark">{siteConfig.legalName}</Badge>
             <Badge tone="gold">Est. {siteConfig.foundedYear}</Badge>
-            <Badge tone="steel">Cikarang · Jawa Barat</Badge>
+            <Badge tone="onDark">Cikarang · Jawa Barat</Badge>
           </div>
         }
         action={
@@ -61,7 +62,7 @@ export default async function AboutPage() {
         <Reveal>
           <div className="overflow-hidden rounded-xl border border-surface-200 bg-white shadow-e2">
             <Visual
-              src="/images/facility/exterior.jpg"
+              src="/images/facility/production-floor.jpg"
               category="emblems"
               alt={t.about.facilityTitle}
               label="Grafindo Production Floor · Cikarang"
@@ -119,11 +120,11 @@ export default async function AboutPage() {
       <section className="container-site section">
         <div className="grid gap-4 md:grid-cols-2">
           <Reveal>
-            <div className="relative h-full overflow-hidden rounded-lg bg-grad-steel p-7 text-white">
+            <div className="panel-industrial h-full p-7">
               <div className="pattern-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
               <Compass className="relative h-8 w-8 text-accent" aria-hidden />
               <h2 className="relative mt-4 font-display text-2xl font-bold">{t.about.visionTitle}</h2>
-              <p className="relative mt-3 text-sm leading-relaxed text-white/60">{vision}</p>
+              <p className="relative mt-3 text-sm leading-relaxed text-white/70">{vision}</p>
             </div>
           </Reveal>
           <Reveal delay={0.08}>
@@ -143,8 +144,9 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="section bg-surface">
-        <div className="container-site">
+      <section className="section texture-fabric-craft relative overflow-hidden border-y border-surface-200">
+        <div className="pattern-craft pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="container-site relative">
           <Reveal>
             <SectionHeader
               eyebrow={t.about.valuesTitle}
