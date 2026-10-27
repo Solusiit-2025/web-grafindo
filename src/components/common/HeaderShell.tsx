@@ -107,13 +107,14 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
       {/* Utility top bar */}
       <div
         className={cn(
-          "hidden transition-all duration-300 lg:block overflow-hidden",
-          scrolled ? "max-h-0 opacity-0 border-b-0" : "max-h-12 opacity-100",
+          "hidden transition-all duration-300 lg:block",
           dark
-            ? isHome
-              ? "border-b border-white/[0.08] bg-transparent text-white/70"
-              : "border-b border-white/[0.08] bg-[#0F1115] text-white/70"
-            : "border-b border-surface-200/60 bg-transparent text-neutral-600",
+            ? scrolled || !isHome
+              ? "border-b border-white/10 bg-[#0F1115]/90 text-white/80 backdrop-blur-xl"
+              : "border-b border-white/[0.08] bg-transparent text-white/70"
+            : scrolled
+              ? "border-b border-surface-200/80 bg-white/[0.90] text-neutral-700 backdrop-blur-xl"
+              : "border-b border-surface-200/60 bg-transparent text-neutral-600",
         )}
       >
         <div className="container-site flex h-9 items-center justify-between text-[0.7rem] font-medium">
