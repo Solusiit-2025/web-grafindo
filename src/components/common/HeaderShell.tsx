@@ -49,6 +49,7 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const productsRef = useRef<HTMLDivElement>(null);
   const isHome = pathname === "/";
   const dark = true;
@@ -323,16 +324,55 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
             </div>
 
             <nav className="flex-1 px-3 py-4" aria-label="Navigasi mobile">
-              {nav.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="flex items-center justify-between rounded-sm px-3 py-3 text-[0.95rem] font-semibold text-white/85 transition hover:bg-white/[0.06] hover:text-white"
-                >
-                  {t.nav[item.key]}
-                  <ArrowRight className="h-4 w-4 text-white/30" aria-hidden />
-                </Link>
-              ))}
+              {nav.map((item) => {
+                if (item.key === "products") {
+                  return (
+                    <div key={item.href}>
+                      <button
+                        type="button"
+                        onClick={() => setMobileProductsOpen((v) => !v)}
+                        className="flex w-full items-center justify-between rounded-sm px-3 py-3 text-[0.95rem] font-semibold text-white/85 transition hover:bg-white/[0.06] hover:text-white"
+                        aria-expanded={mobileProductsOpen}
+                      >
+                        {t.nav[item.key]}
+                        <ChevronDown className={cn("h-4 w-4 text-white/30 transition-transform", mobileProductsOpen && "rotate-180")} aria-hidden />
+                      </button>
+                      {mobileProductsOpen && (
+                        <div className="ml-3 mt-1 space-y-1 border-l border-white/10 pl-3">
+                          {categories.map((category) => (
+                            <Link
+                              key={category.slug}
+                              href={`/products?cat=${category.slug}`}
+                              onClick={() => setOpen(false)}
+                              className="flex items-center justify-between rounded-sm px-2 py-2 text-sm text-white/70 transition hover:bg-white/[0.06] hover:text-white"
+                            >
+                              {category.name}
+                              <span className="font-mono text-[0.6rem] text-white/40">{category.count}</span>
+                            </Link>
+                          ))}
+                          <Link
+                            href="/products"
+                            onClick={() => setOpen(false)}
+                            className="block rounded-sm px-2 py-2 text-sm font-semibold text-accent"
+                          >
+                            {t.header.seeAllProducts}
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-center justify-between rounded-sm px-3 py-3 text-[0.95rem] font-semibold text-white/85 transition hover:bg-white/[0.06] hover:text-white"
+                  >
+                    {t.nav[item.key]}
+                    <ArrowRight className="h-4 w-4 text-white/30" aria-hidden />
+                  </Link>
+                );
+              })}
             </nav>
 
             <div className="border-t border-white/10 px-4 py-4">
