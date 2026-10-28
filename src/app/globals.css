@@ -222,6 +222,7 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     scroll-padding-top: calc(var(--site-header-height) + 16px);
+    overflow-x: hidden;
   }
 
   body {
