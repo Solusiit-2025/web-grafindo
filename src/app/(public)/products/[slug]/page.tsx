@@ -283,8 +283,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         </div>
       </div>
 
-      <section className="container-site py-8 md:py-12">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+      <section className="container-site overflow-x-hidden py-8 md:py-12">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
             <ProductGallery
               images={product.images}
@@ -314,7 +314,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 <p className="mt-4 text-sm leading-relaxed text-neutral-600 md:text-base">{product.description}</p>
               )}
 
-              <div className="mt-6 grid grid-cols-3 gap-px overflow-hidden rounded-md border border-surface-200 bg-surface-200">
+              <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-surface-200 bg-surface-200 sm:grid-cols-3">
                 <div className="bg-white px-3 py-3.5">
                   <p className="flex items-center gap-1 text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-neutral-400">
                     <Layers className="h-3 w-3" aria-hidden /> {t.common.moq}
