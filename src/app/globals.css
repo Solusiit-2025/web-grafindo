@@ -222,7 +222,9 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     scroll-padding-top: calc(var(--site-header-height) + 16px);
-    overflow-x: hidden;
+    /* `clip` mencegah scroll horizontal tanpa membuat scroll container,
+       sehingga `position: sticky` pada navbar tetap bekerja. */
+    overflow-x: clip;
   }
 
   body {
@@ -231,7 +233,16 @@
     background: #ffffff;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
+  }
+
+  /* Fallback untuk browser lama tanpa dukungan overflow: clip —
+     sticky navbar lebih penting daripada pemotongan horizontal. */
+  @supports not (overflow-x: clip) {
+    html,
+    body {
+      overflow-x: visible;
+    }
   }
 
   h1,
