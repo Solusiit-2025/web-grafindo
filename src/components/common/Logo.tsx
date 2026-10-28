@@ -39,12 +39,12 @@ export function Logo({
 }) {
   const content = (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <LogoMark variant={variant} className="h-11 w-auto shrink-0" />
+      <LogoMark variant={variant} className="h-8 w-auto shrink-0 md:h-11" />
       {!compact && (
         <span className="flex flex-col leading-none">
           <span
             className={cn(
-              "font-display text-[1.4rem] font-extrabold tracking-[-0.04em]",
+              "font-display text-[1.1rem] font-extrabold tracking-[-0.04em] md:text-[1.4rem]",
               variant === "light" ? "text-white" : "text-primary",
             )}
           >
