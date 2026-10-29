@@ -166,7 +166,7 @@ export default async function HomePage({
         <div className="pointer-events-none absolute -right-40 top-0 h-[520px] w-[520px] rounded-full bg-accent/10 blur-3xl" aria-hidden />
         <div className="noise pointer-events-none absolute inset-0" aria-hidden />
 
-        <div className="container-site relative grid items-start gap-12 pb-16 pt-12 md:pb-24 md:pt-16 lg:grid-cols-12 lg:gap-8 xl:gap-12">
+        <div className="container-bleed relative grid items-start gap-12 pb-16 pt-12 md:pb-24 md:pt-16 lg:grid-cols-12 lg:gap-8 xl:gap-12">
           <div className="lg:col-span-5 xl:col-span-5">
             <Reveal>
               <p className="eyebrow eyebrow-dark">
@@ -237,7 +237,7 @@ export default async function HomePage({
         </div>
 
         <div className="relative border-t border-white/10">
-          <div className="container-site flex items-center justify-between gap-4 py-4 text-[0.65rem] uppercase tracking-[0.18em] text-white/50">
+          <div className="container-bleed flex items-center justify-between gap-4 py-4 text-[0.65rem] uppercase tracking-[0.18em] text-white/50">
             <span className="inline-flex items-center gap-2">
               <Factory className="h-3.5 w-3.5 text-accent" aria-hidden />
               Cikarang · Jawa Barat

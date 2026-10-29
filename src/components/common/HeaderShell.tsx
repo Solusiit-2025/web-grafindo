@@ -108,17 +108,11 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
       {/* Utility top bar */}
       <div
         className={cn(
-          "hidden transition-all duration-300 lg:block",
-          dark
-            ? scrolled || !isHome
-              ? "border-b border-white/10 bg-[#0F1115]/90 text-white/80 backdrop-blur-xl"
-              : "border-b border-white/[0.08] bg-transparent text-white/70"
-            : scrolled
-              ? "border-b border-surface-200/80 bg-white/[0.90] text-neutral-700 backdrop-blur-xl"
-              : "border-b border-surface-200/60 bg-transparent text-neutral-600",
+          "navbar-strip hidden lg:block",
+          (scrolled || !isHome) && "navbar-strip--solid",
         )}
       >
-        <div className="container-site flex h-9 items-center justify-between text-[0.7rem] font-medium">
+        <div className="container-bleed flex h-9 items-center justify-between text-[0.7rem] font-medium">
           <p className="hidden items-center gap-2 xl:flex">
             <span className="h-1 w-1 rounded-full bg-accent" aria-hidden />
             {t.header.topbarNote}
@@ -142,17 +136,11 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
       {/* Main bar */}
       <div
         className={cn(
-          "border-b transition-all duration-300",
-          dark
-            ? scrolled || !isHome
-              ? "border-white/10 bg-[#0F1115]/90 text-white shadow-2xl shadow-black/30 backdrop-blur-xl"
-              : "border-white/[0.08] bg-transparent text-white"
-            : scrolled
-              ? "border-surface-200/80 bg-white/[0.90] text-primary shadow-e1 backdrop-blur-xl"
-              : "border-surface-200/60 bg-white/[0.75] text-primary backdrop-blur-md",
+          "navbar-surface text-white",
+          (scrolled || !isHome) && "navbar-surface--solid",
         )}
       >
-        <div className="container-site flex h-[68px] items-center justify-between gap-4">
+        <div className="container-bleed flex h-[68px] items-center justify-between gap-4">
           <Logo variant={dark ? "light" : "dark"} />
 
           <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navigasi utama">
