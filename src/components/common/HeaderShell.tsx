@@ -144,6 +144,23 @@ export function HeaderShell({ locale, theme, t, categories, contact, quoteHref =
           <Logo variant={dark ? "light" : "dark"} />
 
           <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navigasi utama">
+            <Link
+              href="/"
+              aria-current={isHome ? "page" : undefined}
+              className={cn(
+                "rounded-md px-3 py-2 text-[0.82rem] font-semibold transition",
+                dark
+                  ? isHome
+                    ? "text-accent"
+                    : "text-white/80 hover:text-white"
+                  : isHome
+                    ? "text-accent-700"
+                    : "text-primary/75 hover:text-primary",
+              )}
+            >
+              {t.nav.home}
+            </Link>
+
             <div
               ref={productsRef}
               className="relative"
